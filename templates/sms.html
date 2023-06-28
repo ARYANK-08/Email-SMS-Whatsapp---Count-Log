@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SMS Sender</title>
+
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Nunito, Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        form {
+            margin: 20px auto;
+            width: 300px;
+            padding: 20px;
+            background-color: #8A2BE2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        select,
+        textarea,
+        input[type="text"],
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: #333;
+        }
+        
+        select {
+            height: 35px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            font-family: Nunito, Arial, sans-serif;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+        button[type="submit1"] {
+            background-color: #8A2BE2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .analytics-container {
+          background-color: #8A2BE2;
+          padding: 10px;
+          color: white;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          width: 300px;
+          margin: 0 auto;
+          border-radius: 5px;
+        }
+        
+        .analytics-container h3 {
+          margin-top: 0;
+        }
+        
+        .analytics-container p {
+          margin: 5px;
+        }
+        
+        
+        
+        
+        button[type="submit1"]:hover {
+            background-color: #45a049;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+        
+        table {
+            margin: 20px auto;
+            width: 600px;
+            background-color: #fff;
+            border: 1px solid #333;
+            border-collapse: collapse;
+        }
+        
+        table th,
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+        
+        table th {
+            background-color: #8A2BE2;
+            color: #fff;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <center>
+  
+    <a href="/log"><button class="fa fa-envelope" type="submit1">Email</button></a>
+    <a href="/send-sms"><button class="fa fa-android" type="submit1">SMS</button></a>
+    <a href="whatsapp.html"><button class="fa fa-whatsapp" type="submit1">WhatsApp</button></a>
+
+    </center>
+</head>
+<body>
+    <h1>SMS Sender</h1>
+
+    <form method="post" action="{% url 'send_sms' %}">
+        {% csrf_token %}
+        <label for="domain">Select Domain:</label>
+        <select name="domain" id="domain">
+            <option value="Whatsapp">Whatsapp</option>
+            <option value="SMS">SMS</option>
+            <!-- Add more options as needed -->
+        </select>
+        <br>
+        <label for="body">Message Body:</label>
+        <textarea name="body" id="body"></textarea>
+        <br>
+        <label for="target_number">Target Number:</label>
+        <input type="text" name="target_number" id="target_number">
+        <br>
+          <br>
+          <br>
+        <form id="sendSmsForm" method="post" action="{% url 'send_sms' %}">
+            {% csrf_token %}
+            <button id="sendSmsButton" type="submit">Send SMS</button>
+        </form>
+    
+    
+    </form>
+
+
+      <div class="analytics-container">
+        <h3> Analytics </h3>
+        <p id="smsCount">Total SMS Count: <span id="countValue">{{ sms_count }}</span></p>
+        <p>WhatsApp Logs Count: {{ whatsapp_count }}</p>
+        <p>SMS Logs Count: {{ smso_count }}</p>
+      </div>
+      
+   
+      <form id="searchForm">
+        <label for="fromDomainFilter">From Domain:</label>
+        <input type="text" id="fromDomainFilter">
+      
+        <label for="fromNumberFilter">From Number:</label>
+        <input type="text" id="fromNumberFilter">
+      
+        <label for="toNumberFilter">To Number:</label>
+        <input type="text" id="toNumberFilter">
+      
+        <button type="submit">Search</button>
+      </form>
+      
+      <table id="smsLogsTable">
+        <thead>
+          <h2> SMS LOGS </h2>
+
+          <tr>
+            <th>Timestamp</th>
+            <th>From Domain</th>
+            <th>From Number</th>
+            <th>To Number</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for log in sms_logs %}
+            <tr>
+              <td>{{ log.timestamp }}</td>
+              <td>{{ log.from_domain }}</td>
+              <td>{{ log.from_number }}</td>
+              <td>{{ log.to_number }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No SMS logs available</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      
+      <script>
+        const searchForm = document.getElementById('searchForm');
+        const smsLogsTable = document.getElementById('smsLogsTable');
+      
+        searchForm.addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent form submission
+      
+          const fromDomainFilter = document.getElementById('fromDomainFilter').value;
+          const fromNumberFilter = document.getElementById('fromNumberFilter').value;
+          const toNumberFilter = document.getElementById('toNumberFilter').value;
+      
+          // Filter SMS logs based on search criteria
+          const filteredLogs = Array.from(smsLogsTable.querySelectorAll('tbody tr')).filter(function(row) {
+            const fromDomain = row.cells[1].textContent;
+            const fromNumber = row.cells[2].textContent;
+            const toNumber = row.cells[3].textContent;
+      
+            return (
+              (!fromDomainFilter || fromDomain.includes(fromDomainFilter)) &&
+              (!fromNumberFilter || fromNumber.includes(fromNumberFilter)) &&
+              (!toNumberFilter || toNumber.includes(toNumberFilter))
+            );
+          });
+      
+          // Show/hide filtered rows
+          Array.from(smsLogsTable.querySelectorAll('tbody tr')).forEach(function(row) {
+            row.style.display = 'none';
+          });
+          filteredLogs.forEach(function(row) {
+            row.style.display = '';
+          });
+        });
+      </script>
+       
+    </body>
+</html>

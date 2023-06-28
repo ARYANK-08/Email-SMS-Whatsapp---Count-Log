@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Sender</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Nunito, Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        form {
+            margin: 20px auto;
+            width: 300px;
+            padding: 20px;
+            background-color: #8A2BE2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        select,
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: #333;
+        }
+        
+        select {
+            height: 35px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            font-family: Nunito, Arial, sans-serif;
+        }
+
+        button[type="submit1"] {
+            background-color: #8A2BE2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit1"]:hover {
+            background-color: #45a049;
+        }
+        
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+        
+        table {
+            margin: 20px auto;
+            width: 600px;
+            background-color: #fff;
+            border: 1px solid #333;
+            border-collapse: collapse;
+        }
+        
+        table th,
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            text-align: center;
+        }
+        
+        table th {
+            background-color: #8A2BE2;
+            color: #fff;
+        }
+    </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <h1>Email Sender</h1>
+    <center>
+    <a href="/log"><button class="fa fa-envelope" type="submit1">Email</button></a>
+    <a href="/send-sms"><button class="fa fa-android" type="submit1">SMS</button></a>
+    <a href="whatsapp.html"><button class="fa fa-whatsapp" type="submit1">WhatsApp</button></a>
+    </center>
+
+    <form action="{% url 'send_email' %}" method="post">
+        {% csrf_token %}
+        <label for="recipients">Select Recipients:</label>
+        <select id="recipients" name="recipients[]" multiple>
+            {% for email_id in email_ids %}
+            <option value="{{ email_id }}">{{ email_id }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="domain">Select Domain:</label>
+        <select id="domain" name="domain">
+            <option value="Mailchimp" {% if domain == 'Mailchimp' %}selected{% endif %}>Mailchimp</option>
+            <option value="SMTP" {% if domain == 'SMTP' %}selected{% endif %}>SMTP</option>
+            <option value="SendGrid" {% if domain == 'SendGrid' %}selected{% endif %}>SendGrid</option>
+        </select>
+        <br><br>
+        <button type="submit">Send Email</button>
+    </form>
+
+       
+    
+        <h2>Email Count Details</h2>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Total Mails Present Count</th>
+                    <th>Sent Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ counts.total_count }}</td>
+                    <td>{{ counts.sent_count }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Search filter logic
+                $('#searchForm').submit(function(event) {
+                    event.preventDefault(); // Prevent form submission
+    
+                    var domainFilter = $('#domainFilter').val().toLowerCase();
+                    var dateFilter = $('#dateFilter').val();
+    
+                    // Perform filtering logic
+                    $('.logEntry').each(function() {
+                        var domain = $(this).data('domain').toLowerCase();
+                        var timestamp = $(this).data('timestamp');
+    
+                        var showEntry = true;
+    
+                        if (domainFilter && domain !== domainFilter) {
+                            showEntry = false;
+                        }
+    
+                        if (dateFilter && timestamp !== dateFilter) {
+                            showEntry = false;
+                        }
+    
+                        if (showEntry) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Email Sender</h1>
+    
+        <form id="searchForm">
+            <label for="domainFilter">Domain:</label>
+            <select id="domainFilter">
+                <option value="">All</option>
+                <option value="mailchimp">Mailchimp</option>
+                <option value="smtp">SMTP</option>
+                <option value="sendgrid">SendGrid</option>
+            </select>
+    
+            <label for="dateFilter">Date:</label>
+            <input type="date" id="dateFilter">
+    
+            <button type="submit">Search</button>
+        </form>
+    
+        <h2>Log Entries</h2>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Recipient Email</th>
+                    <th>Timestamp (IST)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in mail_logs %}
+                <tr class="logEntry" data-domain="{{ log.domain }}" data-timestamp="{{ log.sent_at }}">
+                    <td>{{ log.domain }}</td>
+                    <td>{{ log.recipient_email }}</td>
+                    <td>{{ log.sent_at|date:"Y-m-d H:i:s" }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </body>
+    </html>
+    

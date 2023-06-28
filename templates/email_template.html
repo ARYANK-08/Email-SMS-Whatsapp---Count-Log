@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+{% comment %} Pixel Tracking to track mail : is_opened , is_unique_opened, is_not_opened {% endcomment %}
+<p>Hello Aryan [Testing Time Viewed]</p>
+<img src="{{data_url}}{% url 'track_email' %}?email_id={{ email_id }}" width="1" height="1">
+{% comment %} <span style="background-color: white; background: url(https://www.demo.xircls.in/open-tracking/515949/824/51868)"> {% endcomment %}
+</body>
+</html>

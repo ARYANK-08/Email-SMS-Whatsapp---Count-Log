@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Sender</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        form {
+            margin: 20px auto;
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        select {
+            width: 100%;
+            height: 150px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+        }
+        
+        table {
+            margin: 20px auto;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        table th,
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Sender</h1>
+
+    <form action="{% url 'send_email' %}" method="post">
+        {% csrf_token %}
+        <label for="recipients">Select Recipients:</label>
+        <select id="recipients" name="recipients[]" multiple>
+            {% for email_id in email_ids %}
+            <option value="{{ email_id }}">{{ email_id }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Send Email</button>
+    </form>
+    <h2>Email Count Details</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Total Mails Present Count</th>
+                <th>Sent Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ counts.total_count }}</td>
+                <td>{{ counts.sent_count }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
