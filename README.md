@@ -31,12 +31,19 @@ Task:
  Maintaining a log history with message details (message, sender, receiver, timestamp)
  
  Adding search filters for domain, timestamp, and receiver number, and displaying analytics for the number of SMS sent via each domain.
-![WhatsApp Image 2023-06-21 at 08 25 17](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/8da7cb40-1a17-4932-abba-c34b7a067f98)
-![WhatsApp Image 2023-06-20 at 23 05 57](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/eb0c4ae6-3bfd-48c1-98e5-0191141dc010)
-![Screenshot 2023-06-20 140415](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/fde2758d-a160-4a54-a648-cb255d3d3c8d)
-![Screenshot 2023-06-20 140401](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/836d9975-7369-4ce4-b93f-fe0ee991ca23)
-![Screenshot 2023-06-20 140339](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/ed839572-daa4-4edc-a9cf-ac41fa12b4bf)
-![Screenshot 2023-06-19 220535](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/54d8b78b-3a79-4a91-8213-4439cd24648b)
-![Screenshot 2023-06-19 220420](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/58662d85-c9e8-4948-9968-ab63b44982c9)
-![Screenshot 2023-06-19 220353](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/3004af05-e4b9-45bf-a039-c36e817006bd)
-![Screenshot 2023-06-19 220328](https://github.com/AryanXircls/Email-Sms-Whatsapp-Count-Log/assets/136691711/a8e33236-6340-4212-94ac-6477477a933f)
+
+
+
+
+https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/3dc59e07-9377-425c-829d-373d456991fb
+
+![WhatsApp Image 2023-06-21 at 08 25 17](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/7de4fb12-53e9-4183-b31f-964143ab98f2)
+![WhatsApp Image 2023-06-20 at 23 05 57](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/730db9de-e296-4ce3-b55a-aae782842c8a)
+![Screenshot 2023-06-20 140415](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/76b8e444-4525-40fb-a80c-7e5d0eefd3dc)
+![Screenshot 2023-06-20 140401](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/69b479a6-b7b0-40aa-ab66-a3378ec0d075)
+![Screenshot 2023-06-20 140339](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/49433795-b86b-45c6-9239-78a9b69503a9)
+![Screenshot 2023-06-19 220535](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/a3e57584-ce25-4273-823f-83e243dd11b7)
+![Screenshot 2023-06-19 220420](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/288a3392-d680-4173-a5fe-bf41c34d8d29)
+![Screenshot 2023-06-19 220353](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/403af3e5-9e85-4944-9db5-b55c6d5f6ddf)
+![Screenshot 2023-06-19 220328](https://github.com/ARYANK-08/Email-SMS-Whatsapp---Count-Log/assets/120780784/f7ba6b62-bb46-431c-9b26-84e49561a8f9)
+
